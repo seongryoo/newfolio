@@ -1,1 +1,6 @@
 @use "base";
+@use "fonts";
+
+* {
+  @include fonts.font-jost;
+}

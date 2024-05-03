@@ -1,0 +1,9 @@
+@use "font-imports";
+
+@mixin font-jost {
+  font-family: "Jost", "Trebuchet MS", "Verdana", "Arial", "sans-serif";
+}
+
+@mixin font-lora {
+  font-family: "Lora", "Garamond", "Georgia", "Times New Roman", "serif";
+}
