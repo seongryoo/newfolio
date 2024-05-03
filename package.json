@@ -1,0 +1,24 @@
+{
+  "name": "newfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "serve": "npx @11ty/eleventy --serve",
+    "sasquatch": "npx sass src/scss:_build/css --watch --update --color --embed-sources",
+    "sassybob": "npx sass src/scss:_build/css --no-source-map --style=compressed",
+    "dev": "start npm run serve & start npm run sasquatch",
+    "prod": "start npm run build & start npm run sassybob"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "sass": "^1.76.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
