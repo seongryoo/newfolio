@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx @11ty/eleventy",
+    "build": "npx @11ty/eleventy --output=_prod",
     "serve": "npx @11ty/eleventy --serve",
     "sasquatch": "npx sass src/scss:_build/css --watch --update --color --embed-sources",
-    "sassybob": "npx sass src/scss:_build/css --no-source-map --style=compressed",
+    "sassybob": "npx sass src/scss:_prod/css --no-source-map --style=compressed",
     "dev": "start npm run serve & start npm run sasquatch",
     "prod": "start npm run build & start npm run sassybob"
   },
