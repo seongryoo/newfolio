@@ -8,48 +8,7 @@ tagline: I’m a React developer, digital artist, and accessibility advocate.
 <main>
   <div class="hero">
     <h1 class="hero__text">{{ tagline }}</h1>
-    <svg
-      viewBox="12 24 165 133"
-      role="img"
-      aria-labelledby="hero-illo-title"
-      class="hero__illo"
-    >
-      <title id="hero-illo-title">
-        Hand-drawn illustration of an artist, a computer screen, and the
-        accessibility icon.
-      </title>
-      <desc id="hero-illo-desc">
-        The artist has long dark hair and is holding a tablet pen. The computer
-        has a simplified version of the React JS logo. A speech bubble appears
-        to come out of the computer. Within the speech bubble is the universal
-        accessibility icon (a figure with limbs outstretched, like the Vitruvian
-        Man).
-      </desc>
-      <image
-        href="/public/illo-react.png"
-        class=" "
-        x="0"
-        y="60"
-        width="100"
-        height="100"
-      ></image>
-      <image
-        href="/public/illo-artist.png"
-        class=" "
-        x="90"
-        y="60"
-        width="100"
-        height="100"
-      ></image>
-      <image
-        href="/public/illo-access.png"
-        class=" "
-        x="30"
-        y="0"
-        width="100"
-        height="100"
-      ></image>
-    </svg>
+    {% include "hero-illo.njk" %}
   </div>
   <p>
     Work IBM Front end development for an interactive mainframe visualization
