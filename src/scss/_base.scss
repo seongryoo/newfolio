@@ -1,4 +1,8 @@
+@use "fonts";
+
 * {
   margin: 0;
   padding: 0;
+  @include fonts.font-jost;
+  text-rendering: optimizeLegibility;
 }
