@@ -1,21 +1,31 @@
 ---
-layout: base.njk
+layout: siteframe.njk
 title: Seong-Hyun Ryoo
 description: React developer, digital artist, and accessibility advocate.
 tagline: I’m a React developer, digital artist, and accessibility advocate.
 ---
 
-<main>
-  <div class="hero">
-    <h1 class="hero__text">{{ tagline }}</h1>
-    {% include "hero-illo.njk" %}
-  </div>
-  <p>
-    Work IBM Front end development for an interactive mainframe visualization
-    application which is a mission-critical element of several IBM AIOps
-    software suites. May 2022–present React, TypeScript, Styled components,
-    Cypress Global Change Program Designed, developed, and deployed custom
-    websites for leading climate change organizations in Georgia. August
-    2019–May 2022 HTML/CSS/JS, WordPress, PHP, React
-  </p>
-</main>
+<div class="hero">
+  <h1 class="hero__text">
+    I’m a
+    <span class="hero__text__decorative hero__text__decorative--react"
+      >React developer,</span
+    >
+    <span class="hero__text__decorative hero__text__decorative--artist"
+      >digital artist,</span
+    >
+    and
+    <span class="hero__text__decorative hero__text__decorative--access"
+      >accessibility advocate.</span
+    >
+  </h1>
+  {% include "_hero-illo.njk" %}
+</div>
+<p>
+  Work IBM. Front end development for an interactive mainframe visualization
+  application which is a mission-critical element of several IBM AIOps software
+  suites. May 2022–present React, TypeScript, Styled components, Cypress Global
+  Change Program Designed, developed, and deployed custom websites for leading
+  climate change organizations in Georgia. August 2019–May 2022 HTML/CSS/JS,
+  WordPress, PHP, React
+</p>

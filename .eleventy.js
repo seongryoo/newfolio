@@ -1,8 +1,8 @@
 module.exports = function(eleventyConfig) {
-    eleventyConfig.addPassthroughCopy("src/public");
-    eleventyConfig.addPassthroughCopy("src/fonts");
+    eleventyConfig.addPassthroughCopy("src/_includes/public");
+    eleventyConfig.addPassthroughCopy("src/_includes/fonts");
 	eleventyConfig.setBrowserSyncConfig({
-		files: './_build/css/**/*.css'
+		files: './_build/_includes/css/**/*.css'
 	});
     return {
         dir: {
