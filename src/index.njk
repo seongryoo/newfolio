@@ -3,6 +3,25 @@ layout: siteframe.njk
 title: Seong-Hyun Ryoo
 description: React developer, digital artist, and accessibility advocate.
 tagline: I’m a React developer, digital artist, and accessibility advocate.
+work:
+  [
+    {
+      "name": "IBM",
+      "position": "Front end developer",
+      "start": "May 2022",
+      "end": "present",
+      "desc": "Front end development for an interactive visualization which serves as a flagship component of several IBM AIOps products.",
+      "tooling": ["React", "Typescript", "Cypress", "Styled components"],
+    },
+    {
+      "name": "Global Change Program",
+      "position": "Front end developer",
+      "start": "August 2019",
+      "end": "May 2022",
+      "desc": "Designed, developed, and deployed custom websites for leading climate change organizations in Georgia.",
+      "tooling": ["HTML/CSS/JS", "React", "WordPress", "PHP"],
+    },
+  ]
 ---
 
 <div class="hero">
@@ -21,11 +40,15 @@ tagline: I’m a React developer, digital artist, and accessibility advocate.
   </h1>
   {% include "_hero-illo.njk" %}
 </div>
-<p>
-  Work IBM. Front end development for an interactive mainframe visualization
-  application which is a mission-critical element of several IBM AIOps software
-  suites. May 2022–present React, TypeScript, Styled components, Cypress Global
-  Change Program Designed, developed, and deployed custom websites for leading
-  climate change organizations in Georgia. August 2019–May 2022 HTML/CSS/JS,
-  WordPress, PHP, React
-</p>
+
+<h2>Work</h2>
+{% for item in work %}
+<h3>{{ item.position }}, {{ item.name }}</h3>
+<p>{{ item.start }}–{{ item.end }}</p>
+<p>{{ item.desc }}</p>
+<ul>
+  {% for tool in item.tooling %}
+  <li>{{ tool }}</li>
+  {% endfor %}
+</ul>
+{% endfor %}

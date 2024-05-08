@@ -5,3 +5,16 @@ description: React developer, digital artist, and accessibility advocate.
 ---
 
 <h1>Blog</h1>
+
+<ul>
+  {% for post in collections.post | reverse %}
+  <li>
+    <article>
+      <h3>
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+      </h3>
+      <p>{{ post.data.date }}</p>
+    </article>
+  </li>
+  {% endfor %}
+</ul>

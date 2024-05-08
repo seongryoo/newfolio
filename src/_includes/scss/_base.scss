@@ -15,7 +15,7 @@ button {
   transition: outline-offset 0.2s;
   text-decoration: solid underline 4px colors.$medblue;
   &:hover {
-    text-decoration: none;
+    text-decoration: solid underline 4px colors.$offblack;
   }
   &:focus {
     outline-offset: 8px;
