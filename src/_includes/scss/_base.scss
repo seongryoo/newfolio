@@ -1,9 +1,37 @@
 @use "fonts";
+@use "colors";
 
 * {
   margin: 0;
   padding: 0;
   text-rendering: optimizeLegibility;
+  color: colors.$offblack;
+}
+
+a,
+button {
+  outline-offset: 10px;
+  outline: colors.$darkblue none 4px;
+  transition: outline-offset 0.2s;
+  text-decoration: solid underline 4px colors.$medblue;
+  &:hover {
+    text-decoration: none;
+  }
+  &:focus {
+    outline-offset: 8px;
+    outline-style: solid;
+  }
+  min-width: 3rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.inverted {
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: solid underline 4px colors.$medblue;
+  }
 }
 
 html {

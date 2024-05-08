@@ -1,4 +1,47 @@
+@use "colors";
+
 .header {
   padding: 1rem;
-  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__site-title {
+  font-size: 1.75rem;
+  color: colors.$offblack;
+}
+
+.header__main-nav {
+  font-size: 1.25rem;
+}
+
+.header__main-nav__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.header__main-nav__list__list-item {
+  margin: 0 1rem;
+  &:nth-last-child(1) {
+    margin-inline-end: 0;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    &:hover,
+    &:focus {
+      .header__main-nav__list__list-item__icon {
+        filter: brightness(40%);
+      }
+    }
+  }
+}
+
+.header__main-nav__list__list-item__icon {
+  height: 2rem;
+  width: auto;
+  display: inline-block;
+  margin-inline-end: 0.25rem;
 }

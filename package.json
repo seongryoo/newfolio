@@ -2,14 +2,14 @@
   "name": "newfolio",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.njk",
   "scripts": {
     "serve": "npx @11ty/eleventy --serve",
     "sasquatch": "npx sass src/_includes/scss:_build/_includes/css --watch --update --color --embed-sources",
     "dev": "start npm run serve & start npm run sasquatch"
   },
   "keywords": [],
-  "author": "",
+  "author": "Seong <seonghyunryoo@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
