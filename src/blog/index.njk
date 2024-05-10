@@ -1,20 +1,40 @@
 ---
 layout: siteframe.njk
-title: Blog | Seong-Hyun Ryoo
+title: Blog
 description: React developer, digital artist, and accessibility advocate.
 ---
 
-<h1>Blog</h1>
+{% from 'macros/breadcrumbs.macro.njk' import breadcrumbs %}
 
-<ul>
-  {% for post in collections.post | reverse %}
-  <li>
-    <article>
-      <h3>
-        <a href="{{ post.url }}">{{ post.data.title }}</a>
-      </h3>
-      <p>{{ post.data.date }}</p>
-    </article>
-  </li>
-  {% endfor %}
-</ul>
+{{
+  breadcrumbs([
+    { url: "/", title: "Home" },
+    { url: "/blog", title: "Blog" }
+  ])
+}}
+
+<main id="main" class="contained-width">
+  <h1>Blog</h1>
+
+  <ul>
+    {% for post in collections.post | reverse %}
+    <li>
+      <article>
+        <h3>
+          <a href="{{ post.url }}">{{ post.data.title }}</a>
+        </h3>
+        <p>
+          {{
+            post.data.date.toLocaleDateString("en-us", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric"
+            })
+          }}
+        </p>
+      </article>
+    </li>
+    {% endfor %}
+  </ul>
+</main>

@@ -1,6 +1,6 @@
 ---
 layout: siteframe.njk
-title: Seong-Hyun Ryoo
+title: Home
 description: React developer, digital artist, and accessibility advocate.
 tagline: I’m a React developer, digital artist, and accessibility advocate.
 work:
@@ -24,31 +24,33 @@ work:
   ]
 ---
 
-<div class="hero">
-  <h1 class="hero__text">
-    I’m a
-    <span class="hero__text__decorative hero__text__decorative--react"
-      >React developer,</span
-    >
-    <span class="hero__text__decorative hero__text__decorative--artist"
-      >digital artist,</span
-    >
-    and
-    <span class="hero__text__decorative hero__text__decorative--access"
-      >accessibility advocate.</span
-    >
-  </h1>
-  {% include "_hero-illo.njk" %}
-</div>
+<main id="main" class="contained-width home">
+  <div class="hero">
+    <h1 class="hero__text">
+      I’m a
+      <span class="hero__text__decorative hero__text__decorative--react"
+        >React developer,</span
+      >
+      <span class="hero__text__decorative hero__text__decorative--artist"
+        >digital artist,</span
+      >
+      and
+      <span class="hero__text__decorative hero__text__decorative--access"
+        >accessibility advocate.</span
+      >
+    </h1>
+    {% include "_hero-illo.njk" %}
+  </div>
 
-<h2>Work</h2>
-{% for item in work %}
-<h3>{{ item.position }}, {{ item.name }}</h3>
-<p>{{ item.start }}–{{ item.end }}</p>
-<p>{{ item.desc }}</p>
-<ul>
-  {% for tool in item.tooling %}
-  <li>{{ tool }}</li>
+  <h2>Work</h2>
+  {% for item in work %}
+  <h3>{{ item.position }}, {{ item.name }}</h3>
+  <p>{{ item.start }}–{{ item.end }}</p>
+  <p>{{ item.desc }}</p>
+  <ul>
+    {% for tool in item.tooling %}
+    <li>{{ tool }}</li>
+    {% endfor %}
+  </ul>
   {% endfor %}
-</ul>
-{% endfor %}
+</main>

@@ -2,6 +2,32 @@
 layout: siteframe.njk
 ---
 
-<h1>{{ title }}</h1>
-<p><a href="/blog">Back to blog</a></p>
-{{ content | safe }}
+{% from 'macros/breadcrumbs.macro.njk' import breadcrumbs %}
+
+{{
+  breadcrumbs([
+    { url: "/", title: "Home" },
+    { url: "/blog", title: "Blog" },
+    { url: url, title: title }
+  ])
+}}
+
+<main id="main" class="contained-width">
+  <article class="post">
+    <header class="post__header">
+      <h1 class="post__header__title">{{ title }}</h1>
+      <p class="post__header__date">
+        {{
+          date.toLocaleDateString("en-us", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          })
+        }}
+      </p>
+    </header>
+
+    {{ content | safe }}
+  </article>
+</main>

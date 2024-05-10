@@ -1,0 +1,15 @@
+{% macro breadcrumbs(crumbs) %}
+<nav aria-label="Breadcrumbs" class="breadcrumbs contained-width body-font">
+  <ol class="breadcrumbs__list">
+    {% for crumb in crumbs %}
+    <li>
+      <a href="{{ crumb.url }}" class="breadcrumbs__list__link inverted">{{
+        crumb.title
+      }}</a>
+    </li>
+    {% if not loop.last %}
+    <span class="breadcrumbs__list__divider">/</span>
+    {% endif %} {% endfor %}
+  </ol>
+</nav>
+{% endmacro %}

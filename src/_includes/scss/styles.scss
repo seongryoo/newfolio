@@ -2,9 +2,44 @@
 @use "fonts";
 @use "hero";
 @use "header";
+@use "prism";
+@use "post";
+@use "colors";
 
 .contained-width {
-  margin: 0 auto;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
   padding: 0 1rem;
   max-width: 60rem;
+}
+
+main.dip {
+  margin-top: 2rem;
+}
+
+main.no-dip {
+  margin-top: 0;
+}
+
+.breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+.breadcrumbs__list {
+  display: flex;
+  list-style: none;
+}
+
+.breadcrumbs__list__link {
+  font-weight: normal;
+  text-align: center;
+}
+
+.breadcrumbs__list__divider {
+  margin: 0 0.25rem;
+  color: colors.$medblue;
+}
+
+p.post__header__date {
+  margin-top: 0.5rem;
 }

@@ -1,7 +1,18 @@
 ---
 layout: siteframe.njk
-title: About | Seong-Hyun Ryoo
+title: About
 description: React developer, digital artist, and accessibility advocate.
 ---
 
-<h1>About</h1>
+{% from 'macros/breadcrumbs.macro.njk' import breadcrumbs %}
+
+{{
+  breadcrumbs([
+    { url: "/", title: "Home" },
+    { url: "/about", title: "About" }
+  ])
+}}
+
+<main id="main" class="contained-width">
+  <h1>About</h1>
+</main>

@@ -5,6 +5,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 0.333rem dotted colors.$medblue;
 }
 
 .header__site-title {
