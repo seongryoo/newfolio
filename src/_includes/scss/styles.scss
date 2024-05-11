@@ -43,3 +43,30 @@ main.no-dip {
 p.post__header__date {
   margin-top: 0.5rem;
 }
+
+.skip-link {
+  position: absolute;
+  width: 100%;
+  padding: 1rem 0;
+  background: colors.$white;
+  text-align: center;
+  vertical-align: center;
+  font-size: 1.25rem;
+  color: black;
+  box-shadow: 0px 10px 50px colors.$offblack;
+  outline-offset: 2px;
+  &:focus {
+    outline-offset: 0;
+  }
+  &:not(:focus) {
+    @include base.visually-hidden();
+  }
+}
+
+.inverted {
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: solid underline 4px colors.$medblue;
+  }
+}

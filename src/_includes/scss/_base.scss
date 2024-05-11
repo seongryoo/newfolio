@@ -7,32 +7,47 @@
   text-rendering: optimizeLegibility;
 }
 
-@mixin bodyFont() {
-  font-size: 1.125rem;
-  color: colors.$offblack;
+html {
+  @include fonts.font-jost;
 }
 
-main {
-  @include bodyFont();
-  a {
-    font-weight: bold;
-  }
-  p,
+@mixin headings {
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    margin: 0.5rem 0;
-  }
-  h1 {
-    @include fonts.font-lora;
+    @content;
   }
 }
 
-.body-font {
-  @include bodyFont();
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %headings !optional;
+}
+
+main {
+  font-size: 1.125rem;
+  color: colors.$offblack;
+  * + p,
+  * + %headings,
+  * + pre,
+  * + ul,
+  * + ol {
+    margin-top: 1em;
+  }
+  %headings + p {
+    margin-top: 0.5em;
+  }
+}
+
+h1 {
+  @include fonts.font-lora;
 }
 
 a,
@@ -54,14 +69,12 @@ button {
   display: inline-block;
 }
 
-.inverted {
-  text-decoration: none;
-  &:hover,
-  &:focus {
-    text-decoration: solid underline 4px colors.$medblue;
-  }
-}
-
-html {
-  @include fonts.font-jost;
+@mixin visually-hidden() {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
