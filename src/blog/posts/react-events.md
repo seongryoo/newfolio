@@ -8,7 +8,7 @@ layout: _post.njk
 
 ## Background
 
-Some time ago, I started implementing an event-based architecture for one of the React applications at my job. This particular React app is a large, complex project that relies heavily on `useEffect` in order to control the flow of the data. A great many of our components have `useEffects` which watch for changes in the underlying application state and perform actions upon said changes. This approach does have certain benefits, such as a relatively simple syntax and the ability to tie re-rendering with changes in application state.
+Some time ago, I started implementing an event-based architecture for one of the React applications at my job. This particular React app is a large, complex project that relies heavily on `useEffect` in order to control the flow of the data. A great many of our components have `useEffect`s which watch for changes in the underlying application state and perform actions upon said changes. This approach does have certain benefits, such as a relatively simple syntax and the ability to tie re-rendering with changes in application state.
 
 However, it does have a number of drawbacks. Some include the issue of concurrency/race conditions (e.g., if two separate components have `useEffect` hooks monitoring the change in the same stored value, then which component will execute its response first?) and difficulty debugging. But most of all, I think the utilization of `useEffect` to control the flow of data in our application results in a problem of comprehensibility.
 
@@ -28,12 +28,12 @@ This event-based system does have some limitations. For me, the most glaring has
 
 ```ts
 const [count, setCount] = useState(0);
-...
-const onEventDispatch = () => {
-    setCount(100);
-    console.log(count); // always 0!
-};
 
+// some code in which setCount(100) is invoked
+
+const onEventDispatch = () => {
+  console.log(count); // always 0!
+};
 ```
 
 If we were to subscribe to one of our events with the `onEventDispatch` callback, then the value of `count` would always be `0`. There are two ways to handle this issue: the first is to favor passing in data through the callback parameter (more on this later), which always ensures that you have access to the correct data, bypassing many concurrency issues. Another way to handle this is by wrapping the `useState` variable in a `useRef`.
@@ -41,12 +41,12 @@ If we were to subscribe to one of our events with the `onEventDispatch` callback
 ```ts
 const [count, setCount] = useState(0);
 const statelessCount = useRef<number>(count);
-...
-const onEventDispatch = () => {
-    setCount(100);
-    console.log(statelessCount.current); // prints 100
-};
 
+// some code in which setCount(100) is invoked
+
+const onEventDispatch = () => {
+  console.log(statelessCount.current); // prints 100
+};
 ```
 
 ## Before: a bit of code using `useEffect`
