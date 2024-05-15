@@ -1,72 +1,48 @@
-@use "base";
-@use "fonts";
-@use "hero";
-@use "header";
-@use "prism";
-@use "post";
-@use "colors";
+$groundblue: #90bad2;
 
-.contained-width {
-  margin-inline-start: auto;
-  margin-inline-end: auto;
-  padding: 0 1rem;
-  max-width: 60rem;
+/* jost-300 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/jost-v15-latin-300.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-main.dip {
-  margin-top: 2rem;
+/* jost-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/jost-v15-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-main.no-dip {
-  margin-top: 0;
+/* jost-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/jost-v15-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-.breadcrumbs {
-  margin-bottom: 1rem;
+/* lora-regular - latin_latin-ext */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/lora-v35-latin_latin-ext-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-.breadcrumbs__list {
-  display: flex;
-  list-style: none;
+html {
+  background: $groundblue;
+  text-rendering: optimizeLegibility;
 }
 
-.breadcrumbs__list__link {
-  font-weight: normal;
-  text-align: center;
-}
-
-.breadcrumbs__list__divider {
-  margin: 0 0.25rem;
-  color: colors.$medblue;
-}
-
-p.post__header__date {
-  margin-top: 0.5rem;
-}
-
-.skip-link {
-  position: absolute;
-  width: 100%;
-  padding: 1rem 0;
-  background: colors.$white;
-  text-align: center;
-  vertical-align: center;
-  font-size: 1.25rem;
-  color: black;
-  box-shadow: 0px 10px 50px colors.$offblack;
-  outline-offset: 2px;
-  &:focus {
-    outline-offset: 0;
-  }
-  &:not(:focus) {
-    @include base.visually-hidden();
-  }
-}
-
-.inverted {
-  text-decoration: none;
-  &:hover,
-  &:focus {
-    text-decoration: solid underline 4px colors.$medblue;
-  }
+.hero {
+  font-family: "Lora";
+  font-weight: 300;
+  font-size: 2rem;
 }
