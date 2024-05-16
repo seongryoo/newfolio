@@ -30,12 +30,12 @@
   );
 }
 
-.hero__text__decorative--react {
+.decorative--react {
   @include backline(colors.$fadedblue);
 }
-.hero__text__decorative--artist {
+.decorative--artist {
   @include backline(colors.$fadedred);
 }
-.hero__text__decorative--access {
+.decorative--access {
   @include backline(colors.$fadedyellow);
 }

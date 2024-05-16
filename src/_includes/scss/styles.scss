@@ -71,3 +71,59 @@ body {
 body.Home {
   background: colors.$superweakdred;
 }
+
+.work-section {
+  margin-top: 1rem;
+}
+
+.work-section__heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: normal;
+  @include fonts.font-lora;
+}
+
+.work-section__work-showcase {
+  display: flex;
+  padding: 3rem 0;
+}
+
+.work-section__work-showcase__text {
+  margin-inline-start: 2rem;
+}
+
+.work-section__work-showcase__text__item {
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  box-shadow: 1px 10px 20px colors.$weakred;
+  background: white;
+}
+
+.work-section__work-showcase__text__item
+  + .work-section__work-showcase__text__item {
+  margin-top: 2rem;
+}
+
+.work-section__work-showcase__text__item__date {
+  font-style: italic;
+}
+
+.work-section__work-showcase__text__item__desc {
+  margin-top: 1rem;
+}
+
+.work-section__work-showcase__text__item__tooling {
+  display: flex;
+  list-style: none;
+}
+
+.work-section__work-showcase__text__item__tooling__tool {
+  padding: 0.25rem 1rem;
+  border-radius: 1rem;
+  background: colors.$weakred;
+}
+
+.work-section__work-showcase__text__item__tooling__tool
+  + .work-section__work-showcase__text__item__tooling__tool {
+  margin-inline-start: 1rem;
+}

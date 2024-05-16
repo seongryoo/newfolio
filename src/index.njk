@@ -11,7 +11,7 @@ work:
       "start": "May 2022",
       "end": "present",
       "desc": "Front end development for an interactive visualization which serves as a flagship component of several IBM AIOps products.",
-      "tooling": ["React", "Typescript", "Cypress", "Styled components"],
+      "tooling": ["React", "TypeScript", "Cypress", "Styled components"],
     },
     {
       "name": "Global Change Program",
@@ -28,29 +28,56 @@ work:
   <div class="hero">
     <h1 class="hero__text">
       I’m a
-      <span class="hero__text__decorative hero__text__decorative--react"
+      <span class="hero__text__decorative decorative--react"
         >React developer,</span
       >
-      <span class="hero__text__decorative hero__text__decorative--artist"
+      <span class="hero__text__decorative decorative--artist"
         >digital artist,</span
       >
       and
-      <span class="hero__text__decorative hero__text__decorative--access"
+      <span class="hero__text__decorative decorative--access"
         >accessibility advocate.</span
       >
     </h1>
     {% include "_hero-illo.njk" %}
   </div>
 
-  <h2>Work</h2>
-  {% for item in work %}
-  <h3>{{ item.position }}, {{ item.name }}</h3>
-  <p>{{ item.start }}–{{ item.end }}</p>
-  <p>{{ item.desc }}</p>
-  <ul>
-    {% for tool in item.tooling %}
-    <li>{{ tool }}</li>
-    {% endfor %}
-  </ul>
-  {% endfor %}
+  <section class="work-section">
+    <h2 class="work-section__heading">
+      Here's some of my recent
+      <span class="decorative--react">work experience.</span>
+    </h2>
+    <div class="work-section__work-showcase">
+      <img
+        src="/_includes/public/illo-artist-workin.png"
+        class="work-section__work-showcase__illo"
+        width="270"
+        height="195"
+        alt="An illustration of a little web developer sitting with her hair tied up in a ponytail, looking pleased in front of her laptop."
+      />
+      <div class="work-section__work-showcase__text">
+        {% for item in work %}
+        <div class="work-section__work-showcase__text__item">
+          <h3 class="work-section__work-showcase__text__item__heading">
+            {{ item.position }}, {{ item.name }}
+          </h3>
+          <p class="work-section__work-showcase__text__item__date">
+            {{ item.start }}–{{ item.end }}
+          </p>
+          <p class="work-section__work-showcase__text__item__desc">
+            {{ item.desc }}
+          </p>
+          <ul class="work-section__work-showcase__text__item__tooling">
+            {% for tool in item.tooling %}
+            <li class="work-section__work-showcase__text__item__tooling__tool">
+              {{ tool }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 </main>

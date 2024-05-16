@@ -1,6 +1,9 @@
+@use "colors";
+
 .post {
   background: white;
-  padding: 1rem;
+  padding: 1rem 2rem;
+  box-shadow: 1px 10px 20px colors.$weakred;
   border-radius: 6px;
   a {
     font-weight: bold;
@@ -21,6 +24,7 @@
   // h6 {
   //   margin: 2rem 0 0 0;
   // }
+  margin-bottom: 4rem;
 }
 
 .post__header {
