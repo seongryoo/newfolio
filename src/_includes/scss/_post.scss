@@ -16,6 +16,14 @@
     font-size: 3rem;
     font-weight: 300;
   }
+  h2 {
+    border-top: 0.33rem dotted colors.$fadedred;
+    padding-top: 1rem;
+  }
+  h3 {
+    font-weight: 600;
+    color: colors.$deepred;
+  }
   // h1,
   // h2,
   // h3,

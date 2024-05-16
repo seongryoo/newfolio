@@ -21,11 +21,14 @@
 .breadcrumbs__list {
   display: flex;
   list-style: none;
+  margin-left: -0.5rem;
 }
 
 .breadcrumbs__list__link {
   font-weight: normal;
   text-align: center;
+  padding: 0 0.25rem;
+  margin: 0 0.25rem;
 }
 
 .breadcrumbs__list__divider {
@@ -110,6 +113,8 @@ body.Home {
 
 .work-section__work-showcase__text__item__desc {
   margin-top: 1rem;
+  border-top: 0.33rem dotted colors.$weakred;
+  padding-top: 1rem;
 }
 
 .work-section__work-showcase__text__item__tooling {
