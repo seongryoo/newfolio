@@ -6,7 +6,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  border-bottom: 0.333rem dotted colors.$medblue;
+  outline: 0.33rem dotted colors.$fadedred;
+  // border-bottom: 0.333rem dashed colors.$fadedred;
+  background: colors.$white;
 }
 
 .header__site-title {

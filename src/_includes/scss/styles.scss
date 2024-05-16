@@ -13,15 +13,8 @@
   max-width: 60rem;
 }
 
-main.dip {
-  margin-top: 2rem;
-}
-
-main.no-dip {
-  margin-top: 0;
-}
-
 .breadcrumbs {
+  margin-top: 4rem;
   margin-bottom: 1rem;
 }
 
@@ -69,4 +62,12 @@ p.post__header__date {
   &:focus {
     text-decoration: solid underline 4px colors.$medblue;
   }
+}
+
+body {
+  background: colors.$weakred;
+}
+
+body.Home {
+  background: colors.$superweakdred;
 }
