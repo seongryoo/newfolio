@@ -1,9 +1,10 @@
 ---
-title: Simple event-based architecture in React with TypeScript
+title: Event-based architecture in React with TypeScript
 date: 2024-05-09
 tags: post
 permalink: /blog/posts/event-based-architecture
 layout: _post.njk
+short_title: Event-based in React
 ---
 
 ## Background

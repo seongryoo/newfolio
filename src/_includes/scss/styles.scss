@@ -22,18 +22,18 @@
   display: flex;
   list-style: none;
   margin-left: -0.5rem;
+  flex-wrap: wrap;
+  padding-right: 145px;
 }
 
 .breadcrumbs__list__link {
   font-weight: normal;
-  text-align: center;
   padding: 0 0.25rem;
   margin: 0 0.25rem;
 }
 
 .breadcrumbs__list__divider {
   margin: 0 0.25rem;
-  color: colors.$medblue;
 }
 
 p.post__header__date {

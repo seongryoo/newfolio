@@ -8,11 +8,20 @@ layout: siteframe.njk
   breadcrumbs([
     { url: "/", title: "Home" },
     { url: "/blog", title: "Blog" },
-    { url: url, title: title }
+    { url: url, title: short_title }
   ])
 }}
 
 <main id="main" class="contained-width">
+  <div class="illo-parent contained-width">
+    <img
+      width="145"
+      height="69"
+      class="illo-writing"
+      src="/_includes/public/illo-artist-writing.png"
+      alt="A chibi representation of Seong-Hyun writing the blog post on this page."
+    />
+  </div>
   <div class="post">
     <header class="post__header">
       <h1 class="post__header__title">{{ title }}</h1>
