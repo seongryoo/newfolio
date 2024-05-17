@@ -72,7 +72,7 @@ body {
 }
 
 body.Home {
-  background: colors.$superweakdred;
+  background: colors.$superweakred;
 }
 
 .work-section {
@@ -95,11 +95,15 @@ body.Home {
   margin-inline-start: 2rem;
 }
 
-.work-section__work-showcase__text__item {
+@mixin bubblecard {
   padding: 1rem 1.5rem;
   border-radius: 6px;
   box-shadow: 1px 10px 20px colors.$weakred;
   background: white;
+}
+
+.work-section__work-showcase__text__item {
+  @include bubblecard;
 }
 
 .work-section__work-showcase__text__item
@@ -125,7 +129,7 @@ body.Home {
 .work-section__work-showcase__text__item__tooling__tool {
   padding: 0.25rem 1rem;
   border-radius: 1rem;
-  background: colors.$weakred;
+  background: colors.$blueshine;
 }
 
 .work-section__work-showcase__text__item__tooling__tool

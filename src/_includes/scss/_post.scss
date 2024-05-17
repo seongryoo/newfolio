@@ -13,6 +13,7 @@
     line-height: 1.75;
   }
   h1 {
+    padding-top: 1rem;
     font-size: 3rem;
     font-weight: 300;
   }
@@ -37,4 +38,8 @@
 
 .post__header {
   margin-bottom: 4rem;
+}
+
+.post__header__date {
+  font-style: italic;
 }
