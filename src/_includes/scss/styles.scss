@@ -63,7 +63,7 @@ p.post__header__date {
   text-decoration: none;
   &:hover,
   &:focus {
-    text-decoration: solid underline 4px colors.$medblue;
+    text-decoration: solid underline min(0.175em, 4px) colors.$medblue;
   }
 }
 

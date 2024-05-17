@@ -60,10 +60,10 @@ button {
   outline-offset: 10px;
   outline: colors.$darkblue none 4px;
   transition: outline-offset 0.2s;
-  text-decoration: solid underline 4px colors.$medblue;
+  text-decoration: solid underline min(0.175em, 4px) colors.$medblue;
   color: colors.$deepblue;
   &:hover {
-    text-decoration: solid underline 4px colors.$offblack;
+    text-decoration: solid underline min(0.175em, 4px) colors.$offblack;
   }
   &:focus {
     outline-offset: 8px;
