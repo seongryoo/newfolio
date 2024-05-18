@@ -1,5 +1,6 @@
 @use "fonts";
 @use "colors";
+@use "breakpoints";
 
 .hero {
   display: flex;
@@ -18,6 +19,32 @@
   flex: 1 0 auto;
   width: 25rem;
   height: auto;
+}
+
+@media screen and (max-width: breakpoints.$medlarger) {
+  .hero__illo {
+    width: 20rem;
+  }
+  .hero__text {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: breakpoints.$med) {
+  .hero {
+    flex-direction: column;
+  }
+  .hero__text {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: breakpoints.$small) {
+  .hero__text {
+    font-size: 2rem;
+  }
 }
 
 @mixin backline($color) {

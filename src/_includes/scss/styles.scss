@@ -5,6 +5,7 @@
 @use "prism";
 @use "post";
 @use "colors";
+@use "breakpoints";
 
 .contained-width {
   margin-inline-start: auto;
@@ -88,11 +89,30 @@ body.Home {
 
 .work-section__work-showcase {
   display: flex;
+  align-items: flex-start;
   padding: 3rem 0;
 }
 
 .work-section__work-showcase__text {
   margin-inline-start: 2rem;
+}
+
+.work-section__work-showcase__illo {
+  width: 15rem;
+  height: auto;
+}
+
+@media screen and (max-width: breakpoints.$med) {
+  .work-section__work-showcase__illo {
+    width: 10rem;
+    align-self: flex-end;
+  }
+  .work-section__work-showcase {
+    flex-direction: column;
+  }
+  .work-section__work-showcase__text {
+    margin-inline-start: 0;
+  }
 }
 
 @mixin bubblecard {
@@ -124,15 +144,13 @@ body.Home {
 .work-section__work-showcase__text__item__tooling {
   display: flex;
   list-style: none;
+  flex-wrap: wrap;
 }
 
 .work-section__work-showcase__text__item__tooling__tool {
   padding: 0.25rem 1rem;
   border-radius: 1rem;
   background: colors.$blueshine;
-}
-
-.work-section__work-showcase__text__item__tooling__tool
-  + .work-section__work-showcase__text__item__tooling__tool {
-  margin-inline-start: 1rem;
+  margin-inline-end: 1rem;
+  margin-top: 0.5rem;
 }

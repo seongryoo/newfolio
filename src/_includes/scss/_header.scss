@@ -1,4 +1,5 @@
 @use "colors";
+@use "breakpoints";
 
 .header {
   padding: 1rem;
@@ -28,6 +29,7 @@
   list-style: none;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .header__main-nav__list__list-item {
@@ -52,4 +54,25 @@
   width: auto;
   display: inline-block;
   margin-inline-end: 0.25rem;
+}
+
+@media screen and (max-width: breakpoints.$medlarge) {
+  .header {
+    flex-direction: column;
+  }
+  .header__site-title {
+    margin-bottom: 1rem;
+  }
+  .header__main-nav__list__list-item {
+    &:nth-child(1) {
+      margin-inline-start: 0;
+    }
+  }
+}
+
+@media screen and (max-width: breakpoints.$small) {
+  .header__main-nav__list__list-item {
+    margin-inline-start: 0;
+    margin-inline-end: 2rem;
+  }
 }
