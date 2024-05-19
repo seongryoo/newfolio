@@ -11,12 +11,15 @@
   margin-inline-start: auto;
   margin-inline-end: auto;
   padding: 0 1rem;
+  width: 100%;
   max-width: 60rem;
+  box-sizing: border-box;
 }
 
 .breadcrumbs {
   margin-top: 4rem;
   margin-bottom: 1rem;
+  font-size: 1.25rem;
 }
 
 .breadcrumbs__list {
@@ -35,10 +38,6 @@
 
 .breadcrumbs__list__divider {
   margin: 0 0.25rem;
-}
-
-p.post__header__date {
-  margin-top: 0.5rem;
 }
 
 .skip-link {
@@ -107,8 +106,15 @@ body.Home {
     width: 10rem;
     align-self: flex-end;
   }
+  .work-section {
+    margin-top: 2rem;
+  }
   .work-section__work-showcase {
     flex-direction: column;
+    padding: 2rem 0;
+  }
+  .work-section__heading {
+    font-size: 1.75rem;
   }
   .work-section__work-showcase__text {
     margin-inline-start: 0;

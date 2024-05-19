@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  outline: 0.33rem dotted colors.$fadedred;
+  outline: 0.33rem dotted colors.$medblue;
   // border-bottom: 0.333rem dashed colors.$fadedred;
   background: colors.$white;
 }
@@ -75,4 +75,23 @@
     margin-inline-start: 0;
     margin-inline-end: 2rem;
   }
+}
+
+.prefooter {
+  height: 6rem;
+  margin-top: auto;
+}
+
+.footer {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  outline: 0.33rem dotted colors.$deepredthin;
+  font-size: 1.25rem;
+  // background: colors.$white
+}
+.footer__content__copyright {
+  margin: 0 auto;
 }

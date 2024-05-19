@@ -193,3 +193,5 @@ export const ScoreWatcher = () => {
 ```
 
 ## Conclusion
+
+There you have it! A relatively simple event system which can hopefully make it a lot easier to manage the data flow of a complex React application. It certainly introduces its own share of challenges, but I think in certain cases the benefits it provides in terms of architectural clarity can be very useful indeed.
