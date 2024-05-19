@@ -10,6 +10,16 @@
   outline: 0.33rem dotted colors.$medblue;
   // border-bottom: 0.333rem dashed colors.$fadedred;
   background: colors.$white;
+  // &::after {
+  //   content: "";
+  //   background: linear-gradient(180deg, colors.$white 50%, transparent 100%);
+  //   width: 100%;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   height: 10rem;
+  //   z-index: -1000;
+  // }
 }
 
 .header__site-title {

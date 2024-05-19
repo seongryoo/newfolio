@@ -75,6 +75,10 @@ body.Home {
   background: colors.$superweakred;
 }
 
+body.Work {
+  background: colors.$white;
+}
+
 .work-section {
   margin-top: 1rem;
 }
@@ -121,10 +125,15 @@ body.Home {
   }
 }
 
+@mixin classicShadow {
+  box-shadow: 1px 10px 20px colors.$weakred;
+}
+
 @mixin bubblecard {
   padding: 1rem 1.5rem;
   border-radius: 6px;
   box-shadow: 1px 10px 20px colors.$weakred;
+  @include classicShadow();
   background: white;
 }
 
@@ -159,4 +168,26 @@ body.Home {
   background: colors.$blueshine;
   margin-inline-end: 1rem;
   margin-top: 0.5rem;
+}
+
+.showcase {
+  display: flex;
+  background: colors.$pinkshine;
+  justify-content: center;
+  width: 100%;
+  overflow-y: hidden;
+}
+
+* + .showcase {
+  margin-top: 2rem;
+}
+
+.showcase__img {
+  border-radius: 6px 6px 0 0;
+  box-shadow: 1px 20px 60px colors.$deepredthin;
+  margin-top: 10%;
+  width: 60%;
+  height: 40%;
+  object-fit: cover;
+  object-position: top;
 }
