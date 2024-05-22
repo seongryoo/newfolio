@@ -1,0 +1,25 @@
+{% macro work_item(item) %}
+
+<section class="work-item" aria-labelledby="{{ item.headerId }}">
+  <header class="work-item__headers">
+    <div class="work-item__headers__showcase {{ item.colorClass }}">
+      <img
+        class="work-item__headers__showcase__img"
+        src="{{ item.src }}"
+        width="500"
+        height="400"
+        alt="{{ item.alt }}"
+      />
+    </div>
+    <div class="work-item__headers__text">
+      <h2 id="{{ item.headerId }}" class="work-item__headers__text__heading">
+        {{ item.name }}
+      </h2>
+      <p class="work-item__headers__text__desc">
+        {{ item.desc }}
+      </p>
+    </div>
+  </header>
+</section>
+
+{% endmacro %}

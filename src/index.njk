@@ -42,34 +42,34 @@ work:
     {% include "_hero-illo.njk" %}
   </div>
 
-  <section class="work-section">
-    <h2 class="work-section__heading">
+  <section class="homepage-work">
+    <h2 class="homepage-work__heading">
       Here's some of my recent
       <span class="decorative--react">work experience.</span>
     </h2>
-    <div class="work-section__work-showcase">
+    <div class="homepage-work__work-showcase">
       <img
         src="/_includes/public/illo-artist-workin.png"
-        class="work-section__work-showcase__illo"
+        class="homepage-work__work-showcase__illo"
         width="270"
         height="195"
         alt="An illustration of a little web developer sitting with her hair tied up in a ponytail, looking pleased in front of her laptop."
       />
-      <div class="work-section__work-showcase__text">
+      <div class="homepage-work__work-showcase__text">
         {% for item in work %}
-        <div class="work-section__work-showcase__text__item">
-          <h3 class="work-section__work-showcase__text__item__heading">
+        <div class="homepage-work__work-showcase__text__item">
+          <h3 class="homepage-work__work-showcase__text__item__heading">
             {{ item.position }}, {{ item.name }}
           </h3>
-          <p class="work-section__work-showcase__text__item__date">
+          <p class="homepage-work__work-showcase__text__item__date">
             {{ item.start }}–{{ item.end }}
           </p>
-          <p class="work-section__work-showcase__text__item__desc">
+          <p class="homepage-work__work-showcase__text__item__desc">
             {{ item.desc }}
           </p>
-          <ul class="work-section__work-showcase__text__item__tooling">
+          <ul class="homepage-work__work-showcase__text__item__tooling">
             {% for tool in item.tooling %}
-            <li class="work-section__work-showcase__text__item__tooling__tool">
+            <li class="homepage-work__work-showcase__text__item__tooling__tool">
               {{ tool }}
             </li>
             {% endfor %}
