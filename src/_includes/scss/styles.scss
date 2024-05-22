@@ -165,7 +165,7 @@ body.Work {
 .work-section__work-showcase__text__item__tooling__tool {
   padding: 0.25rem 1rem;
   border-radius: 1rem;
-  background: colors.$blueshine;
+  background: colors.$skyshine;
   margin-inline-end: 1rem;
   margin-top: 0.5rem;
 }
@@ -178,16 +178,23 @@ body.Work {
   overflow-y: hidden;
 }
 
-* + .showcase {
-  margin-top: 2rem;
+.showcase--blue {
+  background: colors.$blueshine;
+}
+
+.showcase--yellow {
+  background: colors.$yellowshine;
 }
 
 .showcase__img {
-  border-radius: 6px 6px 0 0;
-  box-shadow: 1px 20px 60px colors.$deepredthin;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 1px 20px 40px colors.$deepredthin;
+  // border: 1px solid colors.$deepredthin;
+  border-bottom: none;
+  border-top: none;
   margin-top: 10%;
-  width: 60%;
-  height: 40%;
+  width: 75%;
+  height: 75% * (4/6);
   object-fit: cover;
   object-position: top;
 }

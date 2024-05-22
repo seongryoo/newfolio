@@ -14,8 +14,12 @@ description: React developer, digital artist, and accessibility advocate.
 }}
 
 <main id="main" class="contained-width">
-  <h1>Blog</h1>
-
+  <header>
+    <h1>Blog</h1>
+    <p>
+      Verbal scribbles about tech, web accessibility, art, and anything else.
+    </p>
+  </header>
   <ul>
     {% for post in collections.post | reverse %}
     <li>
