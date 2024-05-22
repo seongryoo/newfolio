@@ -16,49 +16,32 @@ description: React developer, digital artist, and accessibility advocate.
 
 <main id="main" class="contained-width">
   <h1>Work</h1>
-  {{
-    work_item({
-      headerId: "urban-heat-atl-h2",
-      name: "UrbanHeatATL",
-      desc: "Web design and development for a citizen science initiative tackling extreme heat in Atlanta.",
-      src: "/_includes/public/work/UrbanHeatATL news full.png",
-      alt: "Urban Heat ATL website screenshot",
-      colorClass: ""
-    })
-  }}
+  {% for item in collections.workItems | reverse %}
 
-  {{
-    work_item({
-      headerId: "sea-level-sensors-h2",
-      name: "Smart Sea Level Sensors",
-      desc: "Web development for a live flood risk
-          monitoring project created in partnership with community organizations and government 
-          stakeholders in Savannah, Georgia",
-      src: "/_includes/public/work/Sea level sensors blog.png",
-      alt: "Sea level sensors website screenshot",
-      colorClass: "work-item__headers__showcase--blue"
-    })
-  }}
-
-  {{
-    work_item({
-      headerId: "global-change-h2",
-      name: "Global Change Program",
-      desc: "Web design and development for a faculty and student-led climate change organization in Georgia Tech.",
-      src: "/_includes/public/work/Global change full.png",
-      alt: "Global Change Program website screenshot",
-      colorClass: "work-item__headers__showcase--yellow"
-    })
-  }}
-
-  {{
-    work_item({
-      headerId: "climate-conference-h2",
-      name: "2019 Georgia Climate Conference",
-      desc: "Web design and development for the flagship conference of the Georgia Climate Project.",
-      src: "/_includes/public/work/Climate conference full.png",
-      alt: "Georgia Climate Conference website screenshot",
-      colorClass: "work-item__headers__showcase--blue"
-    })
-  }}
+  <section class="work-item" aria-labelledby="{{ item.data.headerId }}">
+    <header class="work-item__headers">
+      <div class="work-item__headers__showcase {{ item.data.colorClass }}">
+        <img
+          class="work-item__headers__showcase__img"
+          src="{{ item.data.src }}"
+          width="500"
+          height="400"
+          alt="{{ item.data.alt }}"
+        />
+      </div>
+      <div class="work-item__headers__text">
+        <h2
+          id="{{ item.data.headerId }}"
+          class="work-item__headers__text__heading"
+        >
+          {{ item.data.name }}
+        </h2>
+        <p class="work-item__headers__text__desc">
+          {{ item.data.desc }}
+        </p>
+      </div>
+      <a href="{{ item.url }}">{{ item.data.title }}</a>
+    </header>
+  </section>
+  {% endfor %}
 </main>
