@@ -2,24 +2,15 @@
 layout: siteframe.njk
 ---
 
-{% from 'macros/breadcrumbs.macro.njk' import breadcrumbs %}
-
-{{
-  breadcrumbs([
-    { url: "/", title: "Home" },
-    { url: "/work", title: "Work" },
-    { url: url, title: title }
-  ])
-}}
+<nav aria-label="Back link" class="contained-width back-link">
+  <a href="/work#{{ headerId }}">Back to main Work page</a>
+</nav>
 
 <main id="main" class="contained-width">
   <div class="post">
     <header class="post__header">
       <h1 class="post__header__title">{{ title }}</h1>
     </header>
-    <nav aria-label="Back to work item">
-      <a href="/work#{{ headerId }}">Back to main Work page</a>
-    </nav>
 
     {{ content | safe }}
   </div>

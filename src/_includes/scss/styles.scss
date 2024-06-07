@@ -170,12 +170,22 @@ body.Work {
   margin-top: 0.5rem;
 }
 
+.work-item + .work-item {
+  margin-top: 2rem;
+  border-top: 0.33rem dotted colors.$weakblue;
+}
+
+.work-item__headers__text {
+  margin: 1rem 0;
+}
+
 .work-item__headers__showcase {
   display: flex;
   background: colors.$pinkshine;
   justify-content: center;
   width: 100%;
   overflow-y: hidden;
+  margin: 2rem 0;
 }
 
 .work-item__headers__showcase--blue {
