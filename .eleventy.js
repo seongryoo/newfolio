@@ -2,6 +2,7 @@ const syntax = require("@11ty/eleventy-plugin-syntaxhighlight")
 
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPlugin(syntax);
+    eleventyConfig.addPassthroughCopy("src/CNAME");
     eleventyConfig.addPassthroughCopy("src/.nojekyll");
     eleventyConfig.addPassthroughCopy("src/_includes/public");
     eleventyConfig.addPassthroughCopy("src/_includes/fonts");
