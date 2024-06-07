@@ -5,7 +5,7 @@
   "main": "index.njk",
   "scripts": {
     "serve": "npx @11ty/eleventy --serve",
-    "sasquatch": "npx sass src/_includes/scss:_build/_includes/css --watch --update --color --embed-sources",
+    "sasquatch": "npx sass src/_includes/scss:docs/_includes/css --watch --update --color --embed-sources",
     "dev": "start npm run serve & start npm run sasquatch"
   },
   "keywords": [],

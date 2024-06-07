@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Seong-Hyun Ryoo" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/_includes/css/styles.css" />
+    <title>Sea Level Sensors screenshot long description | Seong-Hyun Ryoo</title>
+  </head>
+  <body class="Sea-Level-Sensors-screenshot-long-description">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+<header class="header">
+  <a href="/" class="header__site-title inverted"
+    >Seong-Hyun Ryoo<span class="header__site-title__bang">!</span></a
+  >
+  <nav aria-label="Main" class="header__main-nav">
+    <ul class="header__main-nav__list">
+      <li class="header__main-nav__list__list-item">
+        <a href="/about" class="inverted"
+          ><img
+            width="32"
+            height="32"
+            alt=""
+            src="/_includes/public/aboutmini.png"
+            class="header__main-nav__list__list-item__icon"
+          />About</a
+        >
+      </li>
+      <li class="header__main-nav__list__list-item">
+        <a href="/work" class="inverted"
+          ><img
+            width="32"
+            height="32"
+            alt=""
+            src="/_includes/public/workmini.png"
+            class="header__main-nav__list__list-item__icon"
+          />Work</a
+        >
+      </li>
+      <li class="header__main-nav__list__list-item">
+        <a href="/blog" class="inverted"
+          ><img
+            width="32"
+            height="32"
+            alt=""
+            src="/_includes/public/blogmini.png"
+            class="header__main-nav__list__list-item__icon"
+          />Blog</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+<nav aria-label="Back link" class="contained-width back-link">
+  <a href="/work#sea-level-sensors-h2">Back to main Work page</a>
+</nav>
+
+<main id="main" class="contained-width">
+  <div class="post">
+    <header class="post__header">
+      <h1 class="post__header__title">Sea Level Sensors screenshot long description</h1>
+    </header>
+
+    
+To be added
+
+  </div>
+</main>
+
+<div class="prefooter"></div>
+<footer class="footer">
+  <p class="footer__content__copyright">
+    © <a href="/">Seong-Hyun Ryoo</a> 2021
+  </p>
+</footer>
+
+
+  </body>
+</html>

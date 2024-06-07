@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Seong-Hyun Ryoo" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/_includes/css/styles.css" />
+    <title>Event-based architecture in React with TypeScript | Seong-Hyun Ryoo</title>
+  </head>
+  <body class="Event-based-architecture-in-React-with-TypeScript">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+<header class="header">
+  <a href="/" class="header__site-title inverted"
+    >Seong-Hyun Ryoo<span class="header__site-title__bang">!</span></a
+  >
+  <nav aria-label="Main" class="header__main-nav">
+    <ul class="header__main-nav__list">
+      <li class="header__main-nav__list__list-item">
+        <a href="/about" class="inverted"
+          ><img
+            width="32"
+            height="32"
+            alt=""
+            src="/_includes/public/aboutmini.png"
+            class="header__main-nav__list__list-item__icon"
+          />About</a
+        >
+      </li>
+      <li class="header__main-nav__list__list-item">
+        <a href="/work" class="inverted"
+          ><img
+            width="32"
+            height="32"
+            alt=""
+            src="/_includes/public/workmini.png"
+            class="header__main-nav__list__list-item__icon"
+          />Work</a
+        >
+      </li>
+      <li class="header__main-nav__list__list-item">
+        <a href="/blog" class="inverted"
+          ><img
+            width="32"
+            height="32"
+            alt=""
+            src="/_includes/public/blogmini.png"
+            class="header__main-nav__list__list-item__icon"
+          />Blog</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+
+
+
+<nav aria-label="Breadcrumbs" class="breadcrumbs contained-width body-font">
+  <ol class="breadcrumbs__list">
+    
+    <li>
+      <a href="/" class="breadcrumbs__list__link inverted">Home</a>
+    </li>
+    
+    <span aria-hidden="true" class="breadcrumbs__list__divider">/</span>
+     
+    <li>
+      <a href="/blog" class="breadcrumbs__list__link inverted">Blog</a>
+    </li>
+    
+    <span aria-hidden="true" class="breadcrumbs__list__divider">/</span>
+     
+    <li>
+      <a href="" class="breadcrumbs__list__link inverted">Event-based in React</a>
+    </li>
+     
+  </ol>
+</nav>
+
+
+<main id="main" class="contained-width">
+  <div class="illo-parent contained-width">
+    <img
+      width="145"
+      height="69"
+      class="illo-writing"
+      src="/_includes/public/illo-artist-writing.png"
+      alt="A chibi representation of Seong-Hyun writing the blog post on this page."
+    />
+  </div>
+  <div class="post">
+    <header class="post__header">
+      <h1 class="post__header__title">Event-based architecture in React with TypeScript</h1>
+      <p class="post__header__date">
+        Wednesday, May 8, 2024
+      </p>
+    </header>
+
+    <h2 id="background" tabindex="-1">Background</h2>
+<p>Some time ago, I started implementing an event-based architecture for one of the React applications at my job. This particular React app is a large, complex project that relies heavily on <code>useEffect</code> in order to control the flow of the data. A great many of our components have <code>useEffect</code>s which watch for changes in the underlying application state and perform actions upon said changes. This approach does have certain benefits, such as a relatively simple syntax and the ability to tie re-rendering with changes in application state.</p>
+<p>However, it does have a number of drawbacks. Some include the issue of concurrency/race conditions (e.g., if two separate components have <code>useEffect</code> hooks monitoring the change in the same stored value, then which component will execute its response first?) and difficulty debugging. But most of all, I think the utilization of <code>useEffect</code> to control the flow of data in our application results in a problem of comprehensibility.</p>
+<p>Often, our application chains <code>useEffects</code> together. For instance, a change in the application state will trigger a <code>useEffect</code> callback in Component A, which will then perform certain transformations to the application state. This transformation then triggers a <code>useEffect</code> callback in Component B, which modifies the application state further, and so on. There is no clear start or end to our data flow, and there is no straightforward way to identify the next or previous step in the <code>useEffect</code> chain. Visualizing in your head the <code>useEffect</code>-based data flow of our application often results in the image of the application state ricocheting off of component to component like a pinball shooting between bumpers. Not only does this make work more time-consuming for developers already familiar with the codebase, it also ends up being a large hurdle for developers who are just joining the project, as a holistic understanding of our pinball-machine data flow must often be built up through gradual exposure to different components in the applicaiton.</p>
+<h2 id="the-alternative%3A-an-event-based-architecture" tabindex="-1">The alternative: an event-based architecture</h2>
+<p>In order to address this issue, I started to implement a simple publish-subscribe event system which will be able to perform the same duties as our <code>useEffect</code>-driven data flow without the complex nature of <code>useEffect</code> chaining. To set up this system, we need to first identify what we mean by an &quot;event.&quot;</p>
+<h3 id="what-is-an-event%3F" tabindex="-1">What is an Event?</h3>
+<p>For our purposes, an Event is a specific, named occurence which happens within the lifecycle of a React application. An Event has an ID and a collection of callbacks, which are all invoked upon the dispatching of the Event. An Event also has the ability to pass a data package to its callback functions upon dispatching.</p>
+<h3 id="a-warning!" tabindex="-1">A warning!</h3>
+<p>This event-based system does have some limitations. For me, the most glaring has been the difficulty in accessing state and store variables from within a callback. For instance, consider a rather innocuous-looking snippet of code in which we try to access the value of a <code>useState</code> variable from within a callback function.</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token punctuation">[</span>count<span class="token punctuation">,</span> setCount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// some code in which setCount(100) is invoked</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">onEventDispatch</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// always 0!</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>If we were to subscribe to one of our events with the <code>onEventDispatch</code> callback, then the value of <code>count</code> would always be <code>0</code>. There are two ways to handle this issue: the first is to favor passing in data through the callback parameter (more on this later), which always ensures that you have access to the correct data, bypassing many concurrency issues. Another way to handle this is by wrapping the <code>useState</code> variable in a <code>useRef</code>.</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token punctuation">[</span>count<span class="token punctuation">,</span> setCount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> statelessCount <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useRef</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// some code in which setCount(100) is invoked</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">onEventDispatch</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>statelessCount<span class="token punctuation">.</span>current<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// prints 100</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<h2 id="before%3A-a-bit-of-code-using-useeffect" tabindex="-1">Before: a bit of code using <code>useEffect</code></h2>
+<p>Let's begin by observing a React component which watches a store value (<code>score</code>) and responds to any changes in said value. When a change to <code>score</code> (the underlying application state) occurs, our component will print out a message to the console using the most recent value of <code>score</code>. Here is the component with its behavior implemented via the <code>useEffect</code> pattern:</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">ScoreWatcher</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// obtain value of score from a store</span>
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Game over. Score: "</span> <span class="token operator">+</span> score<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>score<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>This is simple enough, but imagine ten or twenty more different components which all respond to a change in the <code>score</code> value. At a certain project scale, it becomes very difficult to follow the flow of the data.</p>
+<h2 id="after%3A-implementing-the-event-system" tabindex="-1">After: implementing the event system</h2>
+<h3 id="defining-the-lifeevent-class" tabindex="-1">Defining the LifeEvent class</h3>
+<p>Implementing the event system will require some more setup on our end. First, let's begin by creating an <code>enum</code> which encapsulates all the different possible events which can occur in the lifecycle of our application. This does not have to be exhaustive, as you are meant to expand this list whenever you need to create a new linked behavior. In our case, the event we want to capture is a change in the score.</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">enum</span> LifeEventIds <span class="token punctuation">{</span>
+  <span class="token constant">SCORE_CHANGED</span> <span class="token operator">=</span> <span class="token string">"Score changed"</span><span class="token punctuation">,</span>
+  <span class="token comment">// I like to use string enums since it is helpful for logging,</span>
+  <span class="token comment">// but that part is optional.</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Then, let's define our <code>LifeEvent</code> type itself. Our <code>LifeEvent</code> object will have a unique ID and a collection of callbacks to invoke when dispatched.</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">LifeEvent</span> <span class="token punctuation">{</span>
+  id<span class="token operator">:</span> LifeEventIds<span class="token punctuation">;</span>
+  <span class="token comment">// We use a key-value Object for our callback collection</span>
+  <span class="token comment">// as this allows us to quickly query a callback collection for</span>
+  <span class="token comment">// the specific listenerId, which is needed for unsubscribing a listener.</span>
+  callbacks<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>listenerId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">(</span>data<span class="token operator">:</span> LifeEventData<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span>eventId<span class="token operator">:</span> LifeEventIds<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> eventId<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>callbacks <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="sending-data-packages-on-dispatch-with-lifeeventdata" tabindex="-1">Sending data packages on dispatch with LifeEventData</h3>
+<p>You may have noticed that the callbacks have a parameter of type <code>LifeEventData</code>. This represents the data package which can be sent by a <code>LifeEvent</code> to its callback functions. For this implementation, we want a system which will allow us to define the structure of the <code>LifeEventData</code> for each different <code>LifeEvent</code>. For our <code>LifeEventIds.SCORE_CHANGED</code> event, the most relevant piece of data would likely be the current <code>score</code>.</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">export</span> <span class="token keyword">const</span> LifeEventData <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// There is an entry for each possible event</span>
+  <span class="token punctuation">[</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    score<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<h3 id="the-event-emitter" tabindex="-1">The event emitter</h3>
+<p>Now, let's create an object which can store all the <code>LifeEvent</code>s and perform actions on them (e.g., subscribing, unsubscribing, dispatching). Here is the type definition for such an item.</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">LifeEventEmitterType</span> <span class="token punctuation">{</span>
+  events<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>eventId <span class="token keyword">in</span> LifeEventIds<span class="token punctuation">]</span><span class="token operator">:</span> LifeEvent<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token function-variable function">sub</span><span class="token operator">:</span> <span class="token punctuation">(</span>
+    eventId<span class="token operator">:</span> LifeEventIds<span class="token punctuation">,</span>
+    listenerId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">callback</span><span class="token operator">:</span> <span class="token punctuation">(</span>data<span class="token operator">:</span> LifeEventData<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span>
+  <span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+  <span class="token function-variable function">unsub</span><span class="token operator">:</span> <span class="token punctuation">(</span>eventId<span class="token operator">:</span> LifeEventIds<span class="token punctuation">,</span> listenerId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+  <span class="token function-variable function">dispatch</span><span class="token operator">:</span> <span class="token punctuation">(</span>eventId<span class="token operator">:</span> LifeEventIds<span class="token punctuation">,</span> data<span class="token operator">:</span> LifeEventData<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>And then, the actual object itself:</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">export</span> <span class="token keyword">const</span> LifeEventEmitter <span class="token operator">=</span> <span class="token punctuation">{</span>
+  events<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">]</span><span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">LifeEvent</span><span class="token punctuation">(</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">sub</span><span class="token operator">:</span> <span class="token punctuation">(</span>eventId<span class="token punctuation">,</span> listenerId<span class="token punctuation">,</span> callback<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> event <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>eventId<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    event<span class="token punctuation">.</span>callbacks<span class="token punctuation">[</span>listenerId<span class="token punctuation">]</span> <span class="token operator">=</span> callback<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">unsub</span><span class="token operator">:</span> <span class="token punctuation">(</span>eventId<span class="token punctuation">,</span> listenerId<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> event <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>eventId<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">delete</span> event<span class="token punctuation">.</span>callbacks<span class="token punctuation">[</span>listenerId<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">dispatch</span><span class="token operator">:</span> <span class="token punctuation">(</span>eventId<span class="token punctuation">,</span> data<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> event <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">[</span>eventId<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> listenerId <span class="token keyword">of</span> event<span class="token punctuation">.</span>callbacks<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> callback <span class="token operator">=</span> event<span class="token punctuation">.</span>callbacks<span class="token punctuation">[</span>listenerId<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>callback<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">callback</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<h3 id="dispatching-an-event" tabindex="-1">Dispatching an event</h3>
+<p>Next, let's handle dispatch of the score change event. Dispatching is rather simple. It does not need to be performed within a component, but it can be!</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">const</span> data<span class="token operator">:</span> LifeEventData <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    score<span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+LifeEventEmitter<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="subscribing-to-an-event" tabindex="-1">Subscribing to an event</h3>
+<p>Finally, let's rewrite our original <code>ScoreWatcher</code> component to use the new event system instead of the <code>useEffect</code> system:</p>
+<pre class="language-ts"><code class="language-ts"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">ScoreWatcher</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// obtain value of score from a store</span>
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> listenerId <span class="token operator">=</span> <span class="token string">"score-watcher"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> <span class="token function-variable function">callback</span><span class="token operator">:</span> <span class="token punctuation">(</span>data<span class="token operator">:</span> LifeEventData<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function-variable function">void</span> <span class="token operator">=</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> eventData <span class="token operator">=</span> data<span class="token punctuation">[</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Game over. Score: "</span> <span class="token operator">+</span> eventData<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    LifeEventEmitter<span class="token punctuation">.</span><span class="token function">sub</span><span class="token punctuation">(</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">,</span> listenerId<span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      LifeEventEmitter<span class="token punctuation">.</span><span class="token function">unsub</span><span class="token punctuation">(</span>LifeEventIds<span class="token punctuation">.</span><span class="token constant">SCORE_CHANGED</span><span class="token punctuation">,</span> listenerId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<h2 id="conclusion" tabindex="-1">Conclusion</h2>
+<p>There you have it! A relatively simple event system which can hopefully make it a lot easier to manage the data flow of a complex React application. It certainly introduces its own share of challenges, but I think in certain cases the benefits it provides in terms of architectural clarity can be very useful indeed.</p>
+
+  </div>
+</main>
+
+<div class="prefooter"></div>
+<footer class="footer">
+  <p class="footer__content__copyright">
+    © <a href="/">Seong-Hyun Ryoo</a> 2024
+  </p>
+</footer>
+
+
+  </body>
+</html>
